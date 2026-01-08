@@ -187,10 +187,12 @@ const Orcamento = () => {
                         </>
                       )}
                     </Button>
-                    <Button type="button" variant="whatsapp" size="lg" className="flex-1">
-                      <MessageCircle className="h-5 w-5" />
-                      Chamar no WhatsApp
-                    </Button>
+                    <a href="https://wa.me/5521981691223" target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button type="button" variant="whatsapp" size="lg" className="w-full">
+                        <MessageCircle className="h-5 w-5" />
+                        Chamar no WhatsApp
+                      </Button>
+                    </a>
                   </div>
                 </form>
               </div>

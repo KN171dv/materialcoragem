@@ -99,7 +99,7 @@ const Contato = () => {
                       <h3 className="font-bold">Horário de Funcionamento</h3>
                       <p className="text-muted-foreground">
                         Segunda a Sexta: 7h às 18h<br />
-                        Sábado: 7h às 13h
+                        Sábado: 7h às 16h
                       </p>
                     </div>
                   </div>
@@ -107,10 +107,12 @@ const Contato = () => {
 
                 {/* WhatsApp CTA */}
                 <div className="mt-8">
-                  <Button variant="whatsapp" size="lg" className="w-full sm:w-auto">
-                    <MessageCircle className="h-5 w-5" />
-                    Chamar no WhatsApp
-                  </Button>
+                  <a href="https://wa.me/5521981691223" target="_blank" rel="noopener noreferrer">
+                    <Button variant="whatsapp" size="lg" className="w-full sm:w-auto">
+                      <MessageCircle className="h-5 w-5" />
+                      Chamar no WhatsApp
+                    </Button>
+                  </a>
                 </div>
 
                 {/* Map button */}
