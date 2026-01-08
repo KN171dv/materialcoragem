@@ -1,6 +1,6 @@
 import { MessageCircle } from "lucide-react";
 
-const WHATSAPP_NUMBER = "5511999999999"; // Substituir pelo número real
+const WHATSAPP_NUMBER = "5521981691223";
 const DEFAULT_MESSAGE = "Olá! Gostaria de fazer um orçamento.";
 
 interface WhatsAppButtonProps {

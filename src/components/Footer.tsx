@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { Phone, MapPin, Clock, Mail, Facebook, Instagram } from "lucide-react";
+import logo from "@/assets/logo.png";
+
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/DEn9usKHm4URQd6bA";
 
 export const Footer = () => {
   return (
@@ -8,15 +11,7 @@ export const Footer = () => {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo e descrição */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
-                <span className="text-xl font-black text-accent-foreground">C</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold leading-tight">Coragem</span>
-                <span className="text-xs opacity-80">Material de Construção</span>
-              </div>
-            </div>
+            <img src={logo} alt="Coragem Material de Construção" className="h-16 w-auto" />
             <p className="text-sm leading-relaxed opacity-80">
               Há mais de 20 anos fornecendo materiais de qualidade para sua obra. Sua construção com segurança e confiança.
             </p>
@@ -55,8 +50,8 @@ export const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-accent" />
-                <a href="tel:+5511999999999" className="opacity-80 hover:opacity-100">
-                  (11) 99999-9999
+                <a href="tel:+5521981691223" className="opacity-80 hover:opacity-100">
+                  (21) 98169-1223
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -67,10 +62,14 @@ export const Footer = () => {
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 text-accent" />
-                <span className="opacity-80">
-                  Rua Exemplo, 123<br />
-                  Centro, Cidade/SP
-                </span>
+                <a 
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="opacity-80 hover:opacity-100"
+                >
+                  Rua do Sulista QD: 25 LT: 45
+                </a>
               </li>
             </ul>
           </div>
