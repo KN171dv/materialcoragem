@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/DEn9usKHm4URQd6bA";
 
 const Contato = () => {
   const { toast } = useToast();
@@ -54,8 +56,8 @@ const Contato = () => {
                     </div>
                     <div>
                       <h3 className="font-bold">Telefone / WhatsApp</h3>
-                      <a href="tel:+5511999999999" className="text-muted-foreground hover:text-primary">
-                        (11) 99999-9999
+                      <a href="tel:+5521981691223" className="text-muted-foreground hover:text-primary">
+                        (21) 98169-1223
                       </a>
                     </div>
                   </div>
@@ -78,11 +80,14 @@ const Contato = () => {
                     </div>
                     <div>
                       <h3 className="font-bold">Endereço</h3>
-                      <p className="text-muted-foreground">
-                        Rua Exemplo, 123<br />
-                        Centro, Cidade/SP<br />
-                        CEP 00000-000
-                      </p>
+                      <a 
+                        href={GOOGLE_MAPS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary"
+                      >
+                        Rua do Sulista QD: 25 LT: 45
+                      </a>
                     </div>
                   </div>
 
@@ -108,12 +113,18 @@ const Contato = () => {
                   </Button>
                 </div>
 
-                {/* Map placeholder */}
-                <div className="mt-8 aspect-video overflow-hidden rounded-xl bg-secondary">
-                  <div className="flex h-full items-center justify-center text-muted-foreground">
-                    <MapPin className="mr-2 h-6 w-6" />
-                    Mapa (Google Maps)
-                  </div>
+                {/* Map button */}
+                <div className="mt-8">
+                  <a
+                    href={GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 rounded-xl bg-secondary p-6 transition-colors hover:bg-secondary/80"
+                  >
+                    <MapPin className="h-6 w-6 text-primary" />
+                    <span className="font-medium">Abrir no Google Maps</span>
+                    <ExternalLink className="h-5 w-5 text-muted-foreground" />
+                  </a>
                 </div>
               </div>
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const navigation = [
   { name: "Início", href: "/" },
@@ -10,6 +11,8 @@ const navigation = [
   { name: "Entrega", href: "/entrega" },
   { name: "Contato", href: "/contato" },
 ];
+
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/DEn9usKHm4URQd6bA";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,14 +24,19 @@ export const Header = () => {
       <div className="hidden bg-primary py-2 text-primary-foreground md:block">
         <div className="container flex items-center justify-between text-sm">
           <div className="flex items-center gap-6">
-            <a href="tel:+5511999999999" className="flex items-center gap-2 hover:opacity-80">
+            <a href="tel:+5521981691223" className="flex items-center gap-2 hover:opacity-80">
               <Phone className="h-4 w-4" />
-              (11) 99999-9999
+              (21) 98169-1223
             </a>
-            <span className="flex items-center gap-2">
+            <a 
+              href={GOOGLE_MAPS_URL} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:opacity-80"
+            >
               <MapPin className="h-4 w-4" />
-              Rua Exemplo, 123 - Centro, Cidade/SP
-            </span>
+              Rua do Sulista QD: 25 LT: 45
+            </a>
           </div>
           <span className="font-medium">Seg a Sex: 7h às 18h | Sáb: 7h às 13h</span>
         </div>
@@ -36,14 +44,8 @@ export const Header = () => {
 
       {/* Main header */}
       <div className="container flex h-16 items-center justify-between md:h-20">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary md:h-12 md:w-12">
-            <span className="text-xl font-black text-primary-foreground md:text-2xl">C</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg font-bold leading-tight text-foreground md:text-xl">Coragem</span>
-            <span className="text-xs text-muted-foreground">Material de Construção</span>
-          </div>
+        <Link to="/" className="flex items-center">
+          <img src={logo} alt="Coragem Material de Construção" className="h-12 w-auto md:h-14" />
         </Link>
 
         {/* Desktop navigation */}
