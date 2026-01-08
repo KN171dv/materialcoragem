@@ -37,10 +37,10 @@ export const HeroSection = () => {
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
-              <a href="tel:+5511999999999">
+              <a href="tel:+5521981691223">
                 <Button variant="heroOutline" size="xl" className="w-full sm:w-auto">
                   <Phone className="h-5 w-5" />
-                  (11) 99999-9999
+                  (21) 98169-1223
                 </Button>
               </a>
             </div>
