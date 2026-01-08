@@ -8,8 +8,8 @@ import { Truck, MapPin, Clock, Package, ArrowRight } from "lucide-react";
 const deliveryInfo = [
   {
     icon: Truck,
-    title: "Entrega em toda região",
-    description: "Atendemos toda a cidade e região metropolitana com frota própria.",
+    title: "Entrega em Campo Grande e Bangu",
+    description: "Atendemos toda a região de Campo Grande e Bangu - RJ com frota própria.",
   },
   {
     icon: Clock,
@@ -29,12 +29,12 @@ const deliveryInfo = [
 ];
 
 const regions = [
-  "Centro",
-  "Zona Norte",
-  "Zona Sul",
-  "Zona Leste",
-  "Zona Oeste",
-  "Região Metropolitana",
+  "Campo Grande",
+  "Bangu",
+  "Santíssimo",
+  "Cosmos",
+  "Inhoaíba",
+  "Senador Camará",
 ];
 
 const Entrega = () => {

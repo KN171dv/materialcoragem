@@ -11,7 +11,7 @@ export const Footer = () => {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo e descrição */}
           <div className="space-y-4">
-            <img src={logo} alt="Coragem Material de Construção" className="h-16 w-auto" />
+            <img src={logo} alt="Coragem Material de Construção" className="h-16 w-auto rounded-full" />
             <p className="text-sm leading-relaxed opacity-80">
               Há mais de 20 anos fornecendo materiais de qualidade para sua obra. Sua construção com segurança e confiança.
             </p>
@@ -84,7 +84,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-accent" />
-                <span className="opacity-80">Sábado: 7h às 13h</span>
+                <span className="opacity-80">Sábado: 7h às 16h</span>
               </li>
             </ul>
             <div className="mt-4 flex gap-3">
@@ -97,7 +97,7 @@ export const Footer = () => {
                 <Facebook className="h-5 w-5" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/material_de_construcao_coragem/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/20 transition-colors hover:bg-accent/30"
