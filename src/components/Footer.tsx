@@ -56,8 +56,8 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-accent" />
-                <a href="mailto:contato@coragem.com.br" className="opacity-80 hover:opacity-100">
-                  contato@coragem.com.br
+                <a href="mailto:abr.materialcoragem@gmail.com" className="opacity-80 hover:opacity-100">
+                  abr.materialcoragem@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-2">
