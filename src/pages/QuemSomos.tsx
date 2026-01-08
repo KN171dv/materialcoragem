@@ -54,7 +54,7 @@ const QuemSomos = () => {
 
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Fundada em 2004, a <strong className="text-foreground">Material de Construção Coragem</strong> nasceu do sonho de uma família que acreditava em oferecer mais do que produtos: oferecer soluções para quem quer construir ou reformar.
+                  Fundada em 1999, a <strong className="text-foreground">Material de Construção Coragem</strong> nasceu do sonho de uma família que acreditava em oferecer mais do que produtos: oferecer soluções para quem quer construir ou reformar.
                 </p>
                 <p>
                   Ao longo de mais de duas décadas, nos tornamos referência na região, atendendo desde o pequeno reformista até grandes construtoras. Nossa história foi construída tijolo a tijolo, com muito trabalho, dedicação e, principalmente, respeito aos nossos clientes.
@@ -100,7 +100,7 @@ const QuemSomos = () => {
           <div className="container">
             <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { number: "20+", label: "Anos de experiência" },
+                { number: "25+", label: "Anos de experiência" },
                 { number: "5.000+", label: "Clientes atendidos" },
                 { number: "1.000+", label: "Produtos disponíveis" },
                 { number: "100%", label: "Comprometimento" },

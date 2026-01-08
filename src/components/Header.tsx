@@ -38,14 +38,14 @@ export const Header = () => {
               Rua do Sulista QD: 25 LT: 45
             </a>
           </div>
-          <span className="font-medium">Seg a Sex: 7h às 18h | Sáb: 7h às 13h</span>
+          <span className="font-medium">Seg a Sex: 7h às 18h | Sáb: 7h às 16h</span>
         </div>
       </div>
 
       {/* Main header */}
       <div className="container flex h-16 items-center justify-between md:h-20">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Coragem Material de Construção" className="h-12 w-auto md:h-14" />
+          <img src={logo} alt="Coragem Material de Construção" className="h-12 w-auto rounded-full md:h-14" />
         </Link>
 
         {/* Desktop navigation */}
