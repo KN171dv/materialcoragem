@@ -92,7 +92,7 @@ export const HeroSection = () => {
           </div>
 
           {/* Image carousel */}
-          <div className="hidden items-center justify-center md:flex">
+          <div className="hidden items-start justify-center md:flex md:-mt-8 lg:-mt-12">
             <div className="relative">
               <div className="absolute -inset-4 rounded-2xl bg-accent/20 blur-2xl" />
               <div className="relative h-80 w-80 overflow-hidden rounded-2xl lg:h-[450px] lg:w-[350px]">
