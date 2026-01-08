@@ -1,8 +1,25 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone } from "lucide-react";
+import { useState, useEffect } from "react";
+import carousel1 from "@/assets/carousel-1.png";
+import carousel2 from "@/assets/carousel-2.png";
+import carousel3 from "@/assets/carousel-3.png";
+
+const WHATSAPP_URL = "https://wa.me/5521981691223";
+
+const carouselImages = [carousel1, carousel2, carousel3];
 
 export const HeroSection = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % carouselImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-[600px] overflow-hidden bg-primary md:min-h-[700px]">
       {/* Background pattern */}
@@ -17,7 +34,7 @@ export const HeroSection = () => {
           <div className="flex flex-col justify-center space-y-6 text-primary-foreground">
             <div className="inline-flex w-fit items-center gap-2 rounded-full bg-accent/20 px-4 py-2 text-sm font-medium">
               <span className="flex h-2 w-2 rounded-full bg-accent" />
-              Há mais de 20 anos no mercado
+              Há mais de 25 anos no mercado
             </div>
 
             <h1 className="text-4xl font-black leading-tight tracking-tight md:text-5xl lg:text-6xl">
@@ -74,14 +91,33 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Image placeholder */}
+          {/* Image carousel */}
           <div className="hidden items-center justify-center md:flex">
             <div className="relative">
               <div className="absolute -inset-4 rounded-2xl bg-accent/20 blur-2xl" />
-              <div className="relative flex h-80 w-80 items-center justify-center rounded-2xl bg-primary-dark/50 lg:h-96 lg:w-96">
-                <div className="text-center text-primary-foreground/60">
-                  <div className="text-6xl">🏗️</div>
-                  <p className="mt-4 text-sm">Imagem ilustrativa</p>
+              <div className="relative h-80 w-80 overflow-hidden rounded-2xl lg:h-[450px] lg:w-[350px]">
+                {carouselImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Promoção ${index + 1}`}
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+                      index === currentImage ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                ))}
+                {/* Carousel indicators */}
+                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+                  {carouselImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImage(index)}
+                      className={`h-2 w-2 rounded-full transition-all ${
+                        index === currentImage ? "w-6 bg-accent" : "bg-white/50"
+                      }`}
+                      aria-label={`Ver imagem ${index + 1}`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
