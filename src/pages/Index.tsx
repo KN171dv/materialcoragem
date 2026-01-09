@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import { CategoriesSection } from "@/components/CategoriesSection";
 import { CTASection } from "@/components/CTASection";
+import { GoogleReviewsSection } from "@/components/GoogleReviewsSection";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const Index = () => {
@@ -13,6 +14,7 @@ const Index = () => {
         <HeroSection />
         <CategoriesSection />
         <CTASection />
+        <GoogleReviewsSection />
       </main>
       <Footer />
       <WhatsAppButton />
