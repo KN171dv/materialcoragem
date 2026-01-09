@@ -329,7 +329,7 @@ const Orcamento = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">E-mail</Label>
+                      <Label htmlFor="email">E-mail (opcional)</Label>
                       <Input
                         id="email"
                         name="email"
