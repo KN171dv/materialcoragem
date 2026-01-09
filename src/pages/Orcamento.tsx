@@ -7,12 +7,25 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Send, Upload, MessageCircle, X } from "lucide-react";
+import { Send, Upload, MessageCircle, X, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const ALLOWED_FILE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "application/pdf",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "application/vnd.ms-excel",
+];
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 const Orcamento = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [anexo, setAnexo] = useState<File | null>(null);
+  const [anexoUrl, setAnexoUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     nome: "",
@@ -66,7 +79,9 @@ const Orcamento = () => {
       mensagem += `\n📦 Lista de materiais / Mensagem:\n${formData.mensagem}\n`;
     }
 
-    if (anexo) {
+    if (anexoUrl) {
+      mensagem += `\n📎 Arquivo anexado: ${anexoUrl}`;
+    } else if (anexo) {
       mensagem += `\n📎 Arquivo anexado: ${anexo.name} (anexo enviado no formulário)`;
     }
 
@@ -95,6 +110,7 @@ const Orcamento = () => {
       mensagem: "",
     });
     setAnexo(null);
+    setAnexoUrl(null);
     setLoading(false);
   };
 
@@ -102,36 +118,99 @@ const Orcamento = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Validar tamanho (10MB)
-      if (file.size > 10 * 1024 * 1024) {
-        toast({
-          title: "Arquivo muito grande",
-          description: "O arquivo deve ter no máximo 10MB.",
-          variant: "destructive",
-        });
-        return;
-      }
-      setAnexo(file);
+  const uploadFileToStorage = async (file: File): Promise<string | null> => {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+    const filePath = `uploads/${fileName}`;
+
+    const { error } = await supabase.storage
+      .from("orcamentos")
+      .upload(filePath, file);
+
+    if (error) {
+      console.error("Erro no upload:", error);
+      toast({
+        title: "Erro no upload",
+        description: "Não foi possível enviar o arquivo. Tente novamente.",
+        variant: "destructive",
+      });
+      return null;
     }
+
+    const { data: publicData } = supabase.storage
+      .from("orcamentos")
+      .getPublicUrl(filePath);
+
+    return publicData.publicUrl;
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+  const validateFile = (file: File): boolean => {
+    if (file.size > MAX_FILE_SIZE) {
+      toast({
+        title: "Arquivo muito grande",
+        description: "O arquivo deve ter no máximo 10MB.",
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      toast({
+        title: "Tipo de arquivo não permitido",
+        description: "Apenas arquivos JPG, PNG, PDF e XLSX são permitidos.",
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!validateFile(file)) return;
+
+    setAnexo(file);
+    setUploading(true);
+
+    const url = await uploadFileToStorage(file);
+    if (url) {
+      setAnexoUrl(url);
+      toast({
+        title: "Arquivo enviado!",
+        description: "O arquivo foi anexado com sucesso.",
+      });
+    } else {
+      setAnexo(null);
+    }
+
+    setUploading(false);
+  };
+
+  const handleDrop = async (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        toast({
-          title: "Arquivo muito grande",
-          description: "O arquivo deve ter no máximo 10MB.",
-          variant: "destructive",
-        });
-        return;
-      }
-      setAnexo(file);
+    if (!file) return;
+
+    if (!validateFile(file)) return;
+
+    setAnexo(file);
+    setUploading(true);
+
+    const url = await uploadFileToStorage(file);
+    if (url) {
+      setAnexoUrl(url);
+      toast({
+        title: "Arquivo enviado!",
+        description: "O arquivo foi anexado com sucesso.",
+      });
+    } else {
+      setAnexo(null);
     }
+
+    setUploading(false);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -140,6 +219,7 @@ const Orcamento = () => {
 
   const removeAnexo = () => {
     setAnexo(null);
+    setAnexoUrl(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -262,16 +342,29 @@ const Orcamento = () => {
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept=".pdf,.png,.jpg,.jpeg,.xls,.xlsx,.csv"
+                      accept=".pdf,.png,.jpg,.jpeg,.xlsx"
                       onChange={handleFileChange}
                       className="hidden"
                       id="file-upload"
+                      disabled={uploading}
                     />
-                    {anexo ? (
+                    {uploading ? (
+                      <div className="flex items-center justify-center rounded-lg border border-border bg-secondary/50 p-6">
+                        <div className="flex items-center gap-3">
+                          <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                          <span className="text-sm text-muted-foreground">Enviando arquivo...</span>
+                        </div>
+                      </div>
+                    ) : anexo ? (
                       <div className="flex items-center justify-between rounded-lg border border-border bg-secondary/50 p-4">
                         <div className="flex items-center gap-3">
                           <Upload className="h-5 w-5 text-primary" />
-                          <span className="text-sm font-medium">{anexo.name}</span>
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium">{anexo.name}</span>
+                            {anexoUrl && (
+                              <span className="text-xs text-green-600">✓ Arquivo enviado</span>
+                            )}
+                          </div>
                         </div>
                         <Button
                           type="button"
@@ -296,7 +389,7 @@ const Orcamento = () => {
                             Arraste um arquivo ou clique para enviar
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            PDF, imagem ou planilha (máx. 10MB)
+                            JPG, PNG, PDF ou XLSX (máx. 10MB)
                           </p>
                         </div>
                       </label>
