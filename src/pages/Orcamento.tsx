@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -7,11 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Send, Upload, MessageCircle } from "lucide-react";
+import { Send, Upload, MessageCircle, X } from "lucide-react";
 
 const Orcamento = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [anexo, setAnexo] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     nome: "",
     telefone: "",
@@ -21,18 +23,69 @@ const Orcamento = () => {
     mensagem: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const getTipoClienteLabel = (value: string) => {
+    const labels: Record<string, string> = {
+      "pessoa-fisica": "Pessoa Física",
+      "obra-pequena": "Obra Pequena",
+      "construtor": "Construtor / Empresa",
+    };
+    return labels[value] || value;
+  };
+
+  const getTipoEntregaLabel = (value: string) => {
+    const labels: Record<string, string> = {
+      "entrega": "Entrega no endereço",
+      "retirada": "Retirada na loja",
+    };
+    return labels[value] || value;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simular envio
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Montar a mensagem
+    let mensagem = "Olá, gostaria de solicitar um orçamento.\n\n";
+
+    if (formData.nome) {
+      mensagem += `👤 Nome: ${formData.nome}\n`;
+    }
+    if (formData.telefone) {
+      mensagem += `📞 WhatsApp: ${formData.telefone}\n`;
+    }
+    if (formData.email) {
+      mensagem += `📧 E-mail: ${formData.email}\n`;
+    }
+    if (formData.tipoCliente) {
+      mensagem += `🏷️ Tipo de cliente: ${getTipoClienteLabel(formData.tipoCliente)}\n`;
+    }
+    if (formData.tipoEntrega) {
+      mensagem += `🚚 Preferência de entrega: ${getTipoEntregaLabel(formData.tipoEntrega)}\n`;
+    }
+    if (formData.mensagem) {
+      mensagem += `\n📦 Lista de materiais / Mensagem:\n${formData.mensagem}\n`;
+    }
+
+    if (anexo) {
+      mensagem += `\n📎 Arquivo anexado: ${anexo.name} (anexo enviado no formulário)`;
+    }
+
+    mensagem += "\n\nObrigado!";
+
+    // Gerar link do WhatsApp
+    const whatsappNumber = "5521981691223";
+    const encodedMessage = encodeURIComponent(mensagem);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    // Abrir WhatsApp em nova aba
+    window.open(whatsappUrl, "_blank");
 
     toast({
-      title: "Orçamento enviado!",
-      description: "Em breve entraremos em contato pelo WhatsApp.",
+      title: "Redirecionando para WhatsApp!",
+      description: "Revise a mensagem e envie para nossa equipe.",
     });
 
+    // Limpar formulário
     setFormData({
       nome: "",
       telefone: "",
@@ -41,11 +94,55 @@ const Orcamento = () => {
       tipoEntrega: "",
       mensagem: "",
     });
+    setAnexo(null);
     setLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validar tamanho (10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "Arquivo muito grande",
+          description: "O arquivo deve ter no máximo 10MB.",
+          variant: "destructive",
+        });
+        return;
+      }
+      setAnexo(file);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "Arquivo muito grande",
+          description: "O arquivo deve ter no máximo 10MB.",
+          variant: "destructive",
+        });
+        return;
+      }
+      setAnexo(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+  };
+
+  const removeAnexo = () => {
+    setAnexo(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (
@@ -162,17 +259,48 @@ const Orcamento = () => {
                   {/* Upload */}
                   <div className="space-y-2">
                     <Label>Anexar lista de materiais (opcional)</Label>
-                    <div className="flex items-center justify-center rounded-lg border-2 border-dashed border-border bg-secondary/50 p-6 transition-colors hover:border-primary/50">
-                      <div className="text-center">
-                        <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
-                        <p className="mt-2 text-sm text-muted-foreground">
-                          Arraste um arquivo ou clique para enviar
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          PDF, imagem ou planilha (máx. 10MB)
-                        </p>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".pdf,.png,.jpg,.jpeg,.xls,.xlsx,.csv"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="file-upload"
+                    />
+                    {anexo ? (
+                      <div className="flex items-center justify-between rounded-lg border border-border bg-secondary/50 p-4">
+                        <div className="flex items-center gap-3">
+                          <Upload className="h-5 w-5 text-primary" />
+                          <span className="text-sm font-medium">{anexo.name}</span>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={removeAnexo}
+                          className="h-8 w-8 p-0"
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
                       </div>
-                    </div>
+                    ) : (
+                      <label
+                        htmlFor="file-upload"
+                        onDrop={handleDrop}
+                        onDragOver={handleDragOver}
+                        className="flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-border bg-secondary/50 p-6 transition-colors hover:border-primary/50"
+                      >
+                        <div className="text-center">
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            Arraste um arquivo ou clique para enviar
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PDF, imagem ou planilha (máx. 10MB)
+                          </p>
+                        </div>
+                      </label>
+                    )}
                   </div>
 
                   {/* Submit */}
