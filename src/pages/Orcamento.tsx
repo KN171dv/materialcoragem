@@ -35,6 +35,13 @@ const Orcamento = () => {
     tipoEntrega: "",
     mensagem: "",
   });
+  const [endereco, setEndereco] = useState({
+    cep: "",
+    rua: "",
+    numero: "",
+    complemento: "",
+  });
+  const [loadingCep, setLoadingCep] = useState(false);
 
   const getTipoClienteLabel = (value: string) => {
     const labels: Record<string, string> = {
@@ -51,6 +58,37 @@ const Orcamento = () => {
       "retirada": "Retirada na loja",
     };
     return labels[value] || value;
+  };
+
+  const buscarCep = async (cep: string) => {
+    const cepLimpo = cep.replace(/\D/g, "");
+    if (cepLimpo.length !== 8) return;
+
+    setLoadingCep(true);
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const data = await response.json();
+      if (!data.erro && data.logradouro) {
+        setEndereco((prev) => ({ ...prev, rua: data.logradouro }));
+      }
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+    } finally {
+      setLoadingCep(false);
+    }
+  };
+
+  const handleEnderecoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEndereco((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "cep" && value.replace(/\D/g, "").length === 8) {
+      buscarCep(value);
+    }
+  };
+
+  const hasEnderecoData = () => {
+    return endereco.cep || endereco.rua || endereco.numero || endereco.complemento;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -75,6 +113,16 @@ const Orcamento = () => {
     if (formData.tipoEntrega) {
       mensagem += `🚚 Preferência de entrega: ${getTipoEntregaLabel(formData.tipoEntrega)}\n`;
     }
+
+    // Incluir endereço apenas se tiver dados e for entrega
+    if (formData.tipoEntrega === "entrega" && hasEnderecoData()) {
+      mensagem += `\n📍 Endereço de entrega:\n`;
+      if (endereco.cep) mensagem += `   CEP: ${endereco.cep}\n`;
+      if (endereco.rua) mensagem += `   Rua: ${endereco.rua}\n`;
+      if (endereco.numero) mensagem += `   Número: ${endereco.numero}\n`;
+      if (endereco.complemento) mensagem += `   Complemento: ${endereco.complemento}\n`;
+    }
+
     if (formData.mensagem) {
       mensagem += `\n📦 Lista de materiais / Mensagem:\n${formData.mensagem}\n`;
     }
@@ -108,6 +156,12 @@ const Orcamento = () => {
       tipoCliente: "",
       tipoEntrega: "",
       mensagem: "",
+    });
+    setEndereco({
+      cep: "",
+      rua: "",
+      numero: "",
+      complemento: "",
     });
     setAnexo(null);
     setAnexoUrl(null);
@@ -321,6 +375,63 @@ const Orcamento = () => {
                       <option value="retirada">Retirada na loja</option>
                     </select>
                   </div>
+
+                  {/* Campos de endereço - visíveis apenas quando "Entrega no endereço" */}
+                  {formData.tipoEntrega === "entrega" && (
+                    <div className="space-y-4 rounded-lg border border-border bg-secondary/30 p-4">
+                      <p className="text-sm font-medium text-muted-foreground">
+                        Endereço de entrega (opcional)
+                      </p>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="cep">CEP</Label>
+                          <div className="relative">
+                            <Input
+                              id="cep"
+                              name="cep"
+                              value={endereco.cep}
+                              onChange={handleEnderecoChange}
+                              placeholder="00000-000"
+                              maxLength={9}
+                            />
+                            {loadingCep && (
+                              <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+                            )}
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="numero">Número</Label>
+                          <Input
+                            id="numero"
+                            name="numero"
+                            value={endereco.numero}
+                            onChange={handleEnderecoChange}
+                            placeholder="123"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="rua">Rua</Label>
+                        <Input
+                          id="rua"
+                          name="rua"
+                          value={endereco.rua}
+                          onChange={handleEnderecoChange}
+                          placeholder="Nome da rua"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="complemento">Complemento</Label>
+                        <Input
+                          id="complemento"
+                          name="complemento"
+                          value={endereco.complemento}
+                          onChange={handleEnderecoChange}
+                          placeholder="Apto, bloco, referência..."
+                        />
+                      </div>
+                    </div>
+                  )}
 
                   {/* Mensagem */}
                   <div className="space-y-2">
