@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -281,6 +282,13 @@ const Orcamento = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <Helmet>
+        <title>Peça seu Orçamento - Coragem Material de Construção</title>
+        <meta
+          name="description"
+          content="Solicite orçamento de materiais de construção em Campo Grande RJ. Resposta em até 24h úteis pelo WhatsApp."
+        />
+      </Helmet>
       <Header />
       <main className="flex-1">
         {/* Hero */}
