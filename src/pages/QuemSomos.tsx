@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -24,6 +25,7 @@ const values = [
 const QuemSomos = () => {
   return (
     <div className="flex min-h-screen flex-col">
+      <Seo title="Quem Somos - Coragem Material de Construção, 25 anos em Campo Grande" description="Desde 1999 atendendo Campo Grande e região com materiais de construção de qualidade e atendimento próximo." />
       <Header />
       <main className="flex-1">
         {/* Hero */}

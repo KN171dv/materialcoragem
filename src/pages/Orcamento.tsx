@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Seo } from "@/components/Seo";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -281,6 +282,7 @@ const Orcamento = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <Seo title="Peça seu Orçamento - Coragem Material de Construção" description="Solicite orçamento de materiais de construção em Campo Grande RJ. Resposta em até 24h úteis pelo WhatsApp." />
       <Header />
       <main className="flex-1">
         {/* Hero */}

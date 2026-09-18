@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -40,6 +41,7 @@ const regions = [
 const Entrega = () => {
   return (
     <div className="flex min-h-screen flex-col">
+      <Seo title="Entrega de Material de Construção em Campo Grande e Bangu" description="Entregamos em Campo Grande, Bangu, Santíssimo, Cosmos, Inhoaíba e Senador Camará em até 48h. Frota própria, preço justo." />
       <Header />
       <main className="flex-1">
         {/* Hero */}
