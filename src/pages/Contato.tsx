@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Seo } from "@/components/Seo";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -29,13 +29,7 @@ const Contato = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Helmet>
-        <title>Fale com a Coragem - Material de Construção Campo Grande RJ</title>
-        <meta
-          name="description"
-          content="Telefone, WhatsApp e endereço da Coragem, na Rua do Sulista, Campo Grande RJ. Atendimento de segunda a sábado."
-        />
-      </Helmet>
+      <Seo title="Fale com a Coragem - Material de Construção Campo Grande RJ" description="Telefone, WhatsApp e endereço da Coragem, na Rua do Sulista, Campo Grande RJ. Atendimento de segunda a sábado." />
       <Header />
       <main className="flex-1">
         {/* Hero */}
