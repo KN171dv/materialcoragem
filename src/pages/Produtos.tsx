@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -59,6 +60,13 @@ const categories = [
 const Produtos = () => {
   return (
     <div className="flex min-h-screen flex-col">
+      <Helmet>
+        <title>Cimento, Tintas, Hidráulica e Ferramentas - Coragem Campo Grande</title>
+        <meta
+          name="description"
+          content="Catálogo completo de materiais de construção em Campo Grande RJ: cimento, areia, brita, tintas, hidráulica, elétrica, ferramentas e acabamento."
+        />
+      </Helmet>
       <Header />
       <main className="flex-1">
         {/* Hero */}
