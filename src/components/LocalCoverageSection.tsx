@@ -19,7 +19,10 @@ export const LocalCoverageSection = () => {
             Onde estamos
           </span>
           <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-            Atendemos <span className="text-primary">Campo Grande, Mendanha e Carobinha</span>
+            Atendemos{" "}
+            <span className="text-primary">
+              <span className="whitespace-nowrap">Campo Grande</span>, Mendanha e Carobinha
+            </span>
           </h2>
         </div>
 
