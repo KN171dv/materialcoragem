@@ -36,16 +36,16 @@ export const LocalCoverageSection = () => {
           <h3 className="mb-3 text-center text-sm font-semibold uppercase tracking-wider text-foreground">
             Bairros atendidos
           </h3>
-          <p className="text-center text-sm leading-relaxed text-muted-foreground md:text-base">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-muted-foreground md:text-base">
             {neighborhoods.map((name, index) => (
-              <span key={name}>
-                {name}
+              <span key={name} className="flex items-center gap-x-3">
+                <span className="whitespace-nowrap">{name}</span>
                 {index < neighborhoods.length - 1 && (
-                  <span className="mx-2 text-primary">•</span>
+                  <span className="text-primary">•</span>
                 )}
               </span>
             ))}
-          </p>
+          </div>
         </div>
       </div>
     </section>
