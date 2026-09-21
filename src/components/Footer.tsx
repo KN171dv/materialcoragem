@@ -68,7 +68,9 @@ export const Footer = () => {
                   rel="noopener noreferrer"
                   className="opacity-80 hover:opacity-100"
                 >
-                  Rua do Sulista QD: 25 LT: 45
+                  Rua do Sulista, 803-805<br />
+                  Campo Grande, Rio de Janeiro - RJ<br />
+                  CEP 23098-630
                 </a>
               </li>
             </ul>

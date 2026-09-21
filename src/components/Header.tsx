@@ -22,7 +22,7 @@ export const Header = () => {
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       {/* Top bar */}
       <div className="hidden bg-primary py-2 text-primary-foreground md:block">
-        <div className="container flex items-center justify-between text-sm">
+        <div className="container flex flex-wrap items-center justify-between gap-x-6 gap-y-1 text-sm">
           <div className="flex items-center gap-6">
             <a href="tel:+5521981691223" className="flex items-center gap-2 hover:opacity-80">
               <Phone className="h-4 w-4" />
@@ -34,8 +34,8 @@ export const Header = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:opacity-80"
             >
-              <MapPin className="h-4 w-4" />
-              Rua do Sulista QD: 25 LT: 45
+              <MapPin className="h-4 w-4 shrink-0" />
+              Rua do Sulista, 803-805 - Campo Grande, Rio de Janeiro - RJ, CEP 23098-630
             </a>
           </div>
           <span className="font-medium">Seg a Sex: 7h às 18h | Sáb: 7h às 16h</span>
