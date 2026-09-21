@@ -34,8 +34,8 @@ export const Header = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:opacity-80"
             >
-              <MapPin className="h-4 w-4" />
-              Rua do Sulista QD: 25 LT: 45
+              <MapPin className="h-4 w-4 shrink-0" />
+              Rua do Sulista, 803-805 - Campo Grande, Rio de Janeiro - RJ, CEP 23098-630
             </a>
           </div>
           <span className="font-medium">Seg a Sex: 7h às 18h | Sáb: 7h às 16h</span>
