@@ -14,8 +14,13 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@118,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0a1628">
+<script>(function(r){r.classList.add("reveal");setTimeout(function(){if(!r.classList.contains("reveal-live"))r.classList.remove("reveal")},2500)})(document.documentElement);</script>
 
 <script type="application/ld+json">
 {
@@ -61,9 +66,8 @@
 </div>
 <header class="site-header" data-site-header>
   <div class="container">
-    <a href="index.html" class="brand">
-      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
-      <span>Material De Construção Coragem<small>MATERIAIS DE CONSTRUÇÃO</small></span>
+    <a href="index.html" class="brand" aria-label="Material De Construção Coragem — início">
+      <img class="brand-logo" src="assets/logo-coragem.png" alt="Material De Construção Coragem" width="388" height="166">
     </a>
     <nav class="main-nav">
       <a href="index.html" data-nav-link class="">Início</a>
@@ -79,13 +83,13 @@
         <strong>(21) 98169-1223</strong>
       </div>
       <a class="btn btn-primary" data-wa-message="Olá! Vim pelo site e gostaria de um orçamento." href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.2.28-.74.92-.9 1.1-.17.2-.33.22-.61.08-.28-.14-1.19-.44-2.26-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.18-.28.28-.46.1-.2.05-.36-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.55-.47-.48-.64-.49h-.55c-.2 0-.5.07-.76.36-.26.28-1 1-1 2.4 0 1.42 1.02 2.79 1.16 2.98.14.2 2 3.05 4.86 4.28.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.2-.55-.34z"/><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.85.5 3.6 1.44 5.1L2 22l5.06-1.33A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.1c-1.68 0-3.28-.45-4.66-1.28l-.33-.2-3 .79.8-2.93-.21-.3A8.1 8.1 0 1 1 20.1 12a8.1 8.1 0 0 1-8.08 8.1z"/></svg> Pedir no WhatsApp</a>
-      <button class="nav-toggle" data-nav-toggle aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="nav-toggle" data-nav-toggle aria-label="Abrir menu" aria-controls="mobile-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </header>
-<div class="mobile-nav" data-mobile-nav>
+<div class="mobile-nav" id="mobile-nav" data-mobile-nav>
   <div class="mobile-nav-top">
-    <span class="brand" style="color:#fff">Material De Construção Coragem</span>
+    <span class="brand"><img class="brand-logo" src="assets/logo-coragem.png" alt="Material De Construção Coragem" width="388" height="166"></span>
     <button class="mobile-nav-close" data-nav-close aria-label="Fechar menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <a href="index.html" data-nav-link class="">Início</a>
@@ -127,9 +131,98 @@
     </div>
   </div>
 </section>
+<section class="truck-section">
+  <div class="truck-scene" data-truck-scene role="img" aria-label="Ilustração do caminhão da Coragem entregando areia, pedra e cimento na obra">
+    <svg viewBox="0 0 1200 340" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <g class="tr-hills">
+        <path d="M-100 240V150C-20 128 60 104 140 106C220 108 280 64 380 58C460 54 510 98 570 104C650 112 710 76 790 84C870 92 910 128 990 120C1070 112 1130 86 1300 104V240Z" fill="#10203a"/>
+        <path d="M-100 240V196C40 176 140 168 260 178C380 188 460 160 580 164C700 168 780 190 900 182C1020 174 1120 160 1300 172V240Z" fill="#0e1c33"/>
+      </g>
+      <g fill="#132544">
+        <path d="M600 256V214L632 192L664 214V256Z"/><rect x="672" y="222" width="54" height="34"/>
+        <path d="M900 256V206L940 180L980 206V256Z"/><rect x="990" y="216" width="70" height="40"/><path d="M1070 256V222L1098 204L1126 222V256Z"/>
+      </g>
+      <g stroke="#2b4a7a" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M232 256V66M244 256V66M232 66H380M232 84L380 66M212 66H232"/>
+        <path d="M232 96L244 116L232 136L244 156L232 176L244 196L232 216L244 236" stroke-width="1.5"/>
+        <path d="M352 66V120" stroke-width="1.5"/><path d="M346 120H358"/>
+      </g>
+      <rect x="150" y="196" width="150" height="60" fill="#1c3358"/>
+      <path d="M150 216H300M150 236H300M180 196V216M220 196V216M260 196V216M200 216V236M240 216V236M280 216V236M180 236V256M220 236V256M260 236V256" stroke="#10203a" stroke-width="2"/>
+      <rect x="0" y="256" width="1200" height="84" fill="#141f33"/>
+      <path d="M0 256H1200" stroke="#2b4a7a" stroke-width="2"/>
+      <rect x="0" y="318" width="1200" height="22" fill="#0d1a2f"/>
+      <g class="tr-dashes" fill="#fff212" opacity=".75">
+        <rect x="-160" y="303" width="36" height="4" rx="2"/><rect x="-80" y="303" width="36" height="4" rx="2"/><rect x="0" y="303" width="36" height="4" rx="2"/><rect x="80" y="303" width="36" height="4" rx="2"/><rect x="160" y="303" width="36" height="4" rx="2"/><rect x="240" y="303" width="36" height="4" rx="2"/><rect x="320" y="303" width="36" height="4" rx="2"/><rect x="400" y="303" width="36" height="4" rx="2"/><rect x="480" y="303" width="36" height="4" rx="2"/><rect x="560" y="303" width="36" height="4" rx="2"/><rect x="640" y="303" width="36" height="4" rx="2"/><rect x="720" y="303" width="36" height="4" rx="2"/><rect x="800" y="303" width="36" height="4" rx="2"/><rect x="880" y="303" width="36" height="4" rx="2"/><rect x="960" y="303" width="36" height="4" rx="2"/><rect x="1040" y="303" width="36" height="4" rx="2"/><rect x="1120" y="303" width="36" height="4" rx="2"/><rect x="1200" y="303" width="36" height="4" rx="2"/><rect x="1280" y="303" width="36" height="4" rx="2"/>
+      </g>
+      <g data-ground transform="translate(0 -18)">
+      <g class="tr-pile">
+        <path d="M372 292Q396 262 416 248Q431 239 446 248Q464 262 480 292Z" fill="#d9b26f"/>
+        <path d="M431 243Q446 248 458 262Q468 276 480 292H446Q444 268 431 243Z" fill="#c29b58"/>
+      </g>
+      <g>
+        <ellipse class="tr-stone" cx="318" cy="285" rx="8.5" ry="7" fill="#8b94a3"/><ellipse class="tr-stone" cx="334" cy="285" rx="8.5" ry="7" fill="#a3acb9"/><ellipse class="tr-stone" cx="350" cy="285" rx="8.5" ry="7" fill="#7d8697"/><ellipse class="tr-stone" cx="366" cy="285" rx="8.5" ry="7" fill="#98a1af"/>
+        <ellipse class="tr-stone" cx="326" cy="272" rx="8.5" ry="7" fill="#a3acb9"/><ellipse class="tr-stone" cx="342" cy="272" rx="8.5" ry="7" fill="#8b94a3"/><ellipse class="tr-stone" cx="358" cy="272" rx="8.5" ry="7" fill="#a9b1bd"/>
+        <ellipse class="tr-stone" cx="334" cy="259" rx="8.5" ry="7" fill="#7d8697"/><ellipse class="tr-stone" cx="350" cy="259" rx="8.5" ry="7" fill="#98a1af"/>
+        <ellipse class="tr-stone" cx="342" cy="246" rx="8.5" ry="7" fill="#a3acb9"/>
+      </g>
+      <g fill="#e3c07e">
+        <circle class="tr-sand-drop" cx="440" cy="206" r="3.5" opacity="0"/><circle class="tr-sand-drop" cx="448" cy="210" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="444" cy="216" r="3" opacity="0"/><circle class="tr-sand-drop" cx="452" cy="204" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="436" cy="214" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="446" cy="222" r="3.5" opacity="0"/><circle class="tr-sand-drop" cx="440" cy="226" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="454" cy="214" r="3" opacity="0"/><circle class="tr-sand-drop" cx="438" cy="200" r="2" opacity="0"/><circle class="tr-sand-drop" cx="450" cy="226" r="2.5" opacity="0"/>
+      </g>
+      <g fill="#9aa4b5">
+        <g class="tr-dust-land" opacity="0"><circle cx="390" cy="282" r="12"/><circle cx="404" cy="276" r="9"/></g>
+        <g class="tr-dust-land" opacity="0"><circle cx="440" cy="280" r="13"/><circle cx="456" cy="284" r="9"/></g>
+        <g class="tr-dust-land" opacity="0"><circle cx="330" cy="280" r="11"/><circle cx="316" cy="286" r="8"/></g>
+        <g class="tr-dust-drive" data-x="80" opacity="0"><circle cx="80" cy="284" r="11"/><circle cx="66" cy="288" r="7"/><circle cx="92" cy="288" r="6"/></g>
+        <g class="tr-dust-drive" data-x="190" opacity="0"><circle cx="190" cy="284" r="11"/><circle cx="176" cy="288" r="7"/><circle cx="202" cy="288" r="6"/></g>
+        <g class="tr-dust-drive" data-x="290" opacity="0"><circle cx="290" cy="284" r="11"/><circle cx="276" cy="288" r="7"/><circle cx="302" cy="288" r="6"/></g>
+        <g class="tr-dust-drive" data-x="370" opacity="0"><circle cx="370" cy="284" r="10"/><circle cx="356" cy="288" r="7"/></g>
+        <g class="tr-dust-drive" data-x="430" opacity="0"><circle cx="430" cy="286" r="8"/><circle cx="418" cy="289" r="6"/></g>
+      </g>
+      </g>
+      <g class="tr-truck">
+        <rect x="462" y="236" width="368" height="16" rx="3" fill="#2b3a52"/>
+        <rect x="698" y="146" width="6" height="64" rx="2" fill="#8a94a6"/>
+        <g class="tr-bed">
+          <path d="M464 178H704V238H478Z" fill="#d8dde5"/>
+          <path d="M506 184V236M546 184V236M586 184V236M626 184V236M666 184V236" stroke="#b8c0cc" stroke-width="3"/>
+          <path class="tr-load" d="M470 176Q520 140 574 144Q610 140 634 150V176Z" fill="#d9b26f"/>
+          <g fill="#8b94a3"><circle cx="560" cy="150" r="4"/><circle cx="592" cy="147" r="3.5"/><circle cx="612" cy="152" r="4"/></g>
+          <rect x="460" y="174" width="248" height="9" rx="2" fill="#eef1f4"/>
+          <rect x="640" y="158" width="30" height="16" rx="3" fill="#efe9dc"/><rect x="672" y="158" width="30" height="16" rx="3" fill="#e6dfcf"/><rect x="656" y="142" width="30" height="16" rx="3" fill="#efe9dc"/>
+          <path d="M640 166H670M672 166H702M656 150H686" stroke="#0a1628" stroke-width="3"/>
+        </g>
+        <path d="M706 252V180Q706 168 718 168H792L828 210V252Z" fill="#fff212"/>
+        <path d="M722 180H786L810 208H722Z" fill="#0a1628" opacity=".88"/>
+        <path d="M730 186H760" stroke="#fff" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+        <rect x="706" y="222" width="122" height="7" fill="#0a1628"/>
+        <path d="M752 212V250" stroke="#0a1628" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="820" y="214" width="9" height="8" rx="2" fill="#fff"/>
+        <rect x="822" y="234" width="14" height="16" rx="3" fill="#c9cfd8"/>
+        <g data-ground transform="translate(0 -18)">
+          <g class="tr-wheel"><circle cx="520" cy="270" r="22" fill="#070b12"/><circle cx="520" cy="270" r="11" fill="#c9cfd8"/><path d="M509 270H531M520 259V281" stroke="#0a1628" stroke-width="3"/><circle cx="520" cy="270" r="3.5" fill="#0a1628"/></g>
+        <g class="tr-wheel"><circle cx="572" cy="270" r="22" fill="#070b12"/><circle cx="572" cy="270" r="11" fill="#c9cfd8"/><path d="M561 270H583M572 259V281" stroke="#0a1628" stroke-width="3"/><circle cx="572" cy="270" r="3.5" fill="#0a1628"/></g>
+        <g class="tr-wheel"><circle cx="776" cy="270" r="22" fill="#070b12"/><circle cx="776" cy="270" r="11" fill="#c9cfd8"/><path d="M765 270H787M776 259V281" stroke="#0a1628" stroke-width="3"/><circle cx="776" cy="270" r="3.5" fill="#0a1628"/></g>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
 <section class="section section-alt">
   <div class="container">
-    <div class="map-wrap"><iframe src="https://www.google.com/maps?q=Rua+do+Sulista%2C+803-805+-+Campo+Grande%2C+Rio+de+Janeiro+-+RJ%2C+CEP+23098-630&output=embed" loading="lazy" title="Localização da Coragem"></iframe></div>
+    <div class="map-wrap" data-map-src="https://www.google.com/maps?q=Rua+do+Sulista%2C+803-805+-+Campo+Grande%2C+Rio+de+Janeiro+-+RJ%2C+CEP+23098-630&output=embed" data-map-title="Localização da Coragem">
+      <div class="map-cover map-art" aria-hidden="true"></div>
+      <div class="map-cover map-card">
+        <span class="map-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <strong>Rua do Sulista, 803-805</strong>
+        <span>Campo Grande, Rio de Janeiro - RJ</span>
+        <div class="map-actions">
+          <button type="button" class="btn btn-primary" data-map-load>Carregar mapa</button>
+          <a class="btn btn-ghost" href="https://maps.app.goo.gl/gFBnswycrDKVBB3N8" target="_blank" rel="noopener">Abrir no Google Maps</a>
+        </div>
+      </div>
+      <noscript><iframe src="https://www.google.com/maps?q=Rua+do+Sulista%2C+803-805+-+Campo+Grande%2C+Rio+de+Janeiro+-+RJ%2C+CEP+23098-630&output=embed" loading="lazy" title="Localização da Coragem"></iframe></noscript>
+    </div>
   </div>
 </section>
 
@@ -139,7 +232,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> <span>Material De Construção Coragem</span></a>
+        <a href="index.html" class="brand"><img class="brand-logo brand-logo-lg" src="assets/logo-coragem.png" alt="Material De Construção Coragem" width="388" height="166"></a>
         <p>Há mais de 25 anos vendendo material de construção em Campo Grande, Mendanha e região com preço justo e entrega rápida.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/material_coragem/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
@@ -183,9 +276,9 @@
 </footer>
 <a class="wa-float" data-wa-message="Olá! Vim pelo site e gostaria de um orçamento." href="#" target="_blank" rel="noopener" aria-label="Fale no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.2.28-.74.92-.9 1.1-.17.2-.33.22-.61.08-.28-.14-1.19-.44-2.26-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.18-.28.28-.46.1-.2.05-.36-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.55-.47-.48-.64-.49h-.55c-.2 0-.5.07-.76.36-.26.28-1 1-1 2.4 0 1.42 1.02 2.79 1.16 2.98.14.2 2 3.05 4.86 4.28.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.2-.55-.34z"/><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.85.5 3.6 1.44 5.1L2 22l5.06-1.33A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.1c-1.68 0-3.28-.45-4.66-1.28l-.33-.2-3 .79.8-2.93-.21-.3A8.1 8.1 0 1 1 20.1 12a8.1 8.1 0 0 1-8.08 8.1z"/></svg></a>
 <script>document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js" defer></script>
 <script src="assets/script.js" defer></script>
 

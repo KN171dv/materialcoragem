@@ -8,25 +8,30 @@ ficam centralizados em um só lugar.
 
 ## Estrutura
 ```
-coragem-site/
-├── build.py           <- gera o site (roda: python3 build.py)
-├── src/assets/
-│   ├── style.css       <- todo o CSS do site
-│   └── script.js       <- toda a interatividade (menu, formulário, animações)
-└── dist/                <- SAÍDA PRONTA — é isso que vai pro Vercel
-    ├── index.html
-    ├── produtos.html
-    ├── quem-somos.html
-    ├── entrega.html
-    ├── contato.html
-    ├── orcamento.html
-    ├── material-de-construcao-mendanha-campo-grande.html
-    ├── robots.txt
-    ├── sitemap.xml
-    └── assets/
-        ├── style.css
-        └── script.js
+materialcoragem/
+├── build.py            <- gera o HTML do site (roda: python3 build.py)
+├── vercel.json         <- publica a pasta site/ (outputDirectory: "site")
+├── public/upload/      <- arquivo original da logo
+└── site/               <- É ISSO QUE VAI PRO VERCEL
+    ├── index.html, produtos.html, quem-somos.html, entrega.html,
+    │   contato.html, orcamento.html,
+    │   material-de-construcao-mendanha-campo-grande.html   <- gerados pelo build.py
+    ├── robots.txt, sitemap.xml                             <- gerados pelo build.py
+    └── assets/         <- editados à mão (o build.py não mexe aqui)
+        ├── style.css       <- todo o CSS do site
+        ├── script.js       <- menu, formulário, mapa, FAQ, animações e scroll
+        ├── logo-coragem.png
+        └── favicon-32.png, favicon-192.png, apple-touch-icon.png
 ```
+
+### Como editar
+- **Texto, telefone, endereço, horário, categorias, FAQ:** edite `build.py`
+  e rode `python3 build.py`. Ele reescreve os HTML e o sitemap em `site/`.
+  Não edite os `.html` à mão, senão a próxima geração apaga a mudança.
+- **Visual e interações:** edite `site/assets/style.css` e
+  `site/assets/script.js` direto.
+- Pra conferir o resultado sem mexer em `site/`:
+  `python3 build.py /tmp/teste` gera numa pasta separada.
 
 ## Como colocar no seu repositório (VS Code + GitHub + Vercel)
 
@@ -38,15 +43,9 @@ conectado no Vercel. Passos:
    etc.) — ou mova para uma pasta `_antigo-lovable/` se preferir guardar de
    lado por enquanto.
 
-2. **Copie o conteúdo da pasta `dist/`** (deste pacote) para a **raiz** do
-   seu repositório. Ou seja, `index.html`, `produtos.html`, `assets/`, etc.
-   ficam direto na raiz do repo (não dentro de uma subpasta `dist/`).
-
-   Dica: também copie `build.py` e a pasta `src/` pra raiz do repo — assim,
-   se um dia você (ou eu, numa próxima conversa) quiser editar um texto,
-   preço ou adicionar uma categoria nova, basta editar `build.py` e rodar
-   `python3 build.py` de novo pra regenerar tudo, em vez de editar cada HTML
-   na mão.
+2. **O site fica na pasta `site/`** e o `vercel.json` já manda o Vercel
+   publicar essa pasta. Pra mudar texto, preço ou categoria, edite
+   `build.py` e rode `python3 build.py` (veja "Como editar" acima).
 
 3. **Commit e push:**
    ```
@@ -75,4 +74,10 @@ conectado no Vercel. Passos:
 - Formulário de orçamento manda tudo pronto pro WhatsApp (não guarda dado
   nenhum, não precisa de backend).
 - Animações sutis de entrada ao rolar a página e rolagem suave (GSAP +
-  Lenis, carregados via CDN — funcionam sozinhos, sem instalar nada).
+  ScrollTrigger + Lenis + Motion, carregados via CDN — funcionam sozinhos,
+  sem instalar nada). O Lenis roda num único loop, o do `gsap.ticker`: não
+  crie outro `requestAnimationFrame` pra ele, isso volta a travar o scroll.
+- O mapa do Google só carrega quando a pessoa clica em "Carregar mapa"
+  (deixa a página ~400 KiB mais leve e não "sequestra" a rolagem).
+- Na página de entrega, a animação do caminhão é um SVG leve controlado
+  pelo scroll (`initTruckScene` em `script.js`).
