@@ -1,0 +1,7 @@
+{
+    "buildCommand": "echo 'site estatico, sem build'",
+    "installCommand": "echo 'sem dependencias'",
+    "outputDirectory": "site",
+    "cleanUrls": true,
+    "trailingSlash": false
+}
