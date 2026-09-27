@@ -14,8 +14,13 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@118,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0a1628">
+<script>(function(r){r.classList.add("reveal");setTimeout(function(){if(!r.classList.contains("reveal-live"))r.classList.remove("reveal")},2500)})(document.documentElement);</script>
 
 <script type="application/ld+json">
 {
@@ -61,9 +66,8 @@
 </div>
 <header class="site-header" data-site-header>
   <div class="container">
-    <a href="index.html" class="brand">
-      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
-      <span>Material De Construção Coragem<small>MATERIAIS DE CONSTRUÇÃO</small></span>
+    <a href="index.html" class="brand" aria-label="Material De Construção Coragem — início">
+      <img class="brand-logo" src="assets/logo-coragem.png" alt="Material De Construção Coragem" width="388" height="166">
     </a>
     <nav class="main-nav">
       <a href="index.html" data-nav-link class="active">Início</a>
@@ -79,13 +83,13 @@
         <strong>(21) 98169-1223</strong>
       </div>
       <a class="btn btn-primary" data-wa-message="Olá! Vim pelo site e gostaria de um orçamento." href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.2.28-.74.92-.9 1.1-.17.2-.33.22-.61.08-.28-.14-1.19-.44-2.26-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.18-.28.28-.46.1-.2.05-.36-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.55-.47-.48-.64-.49h-.55c-.2 0-.5.07-.76.36-.26.28-1 1-1 2.4 0 1.42 1.02 2.79 1.16 2.98.14.2 2 3.05 4.86 4.28.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.2-.55-.34z"/><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.85.5 3.6 1.44 5.1L2 22l5.06-1.33A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.1c-1.68 0-3.28-.45-4.66-1.28l-.33-.2-3 .79.8-2.93-.21-.3A8.1 8.1 0 1 1 20.1 12a8.1 8.1 0 0 1-8.08 8.1z"/></svg> Pedir no WhatsApp</a>
-      <button class="nav-toggle" data-nav-toggle aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <button class="nav-toggle" data-nav-toggle aria-label="Abrir menu" aria-controls="mobile-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </header>
-<div class="mobile-nav" data-mobile-nav>
+<div class="mobile-nav" id="mobile-nav" data-mobile-nav>
   <div class="mobile-nav-top">
-    <span class="brand" style="color:#fff">Material De Construção Coragem</span>
+    <span class="brand"><img class="brand-logo" src="assets/logo-coragem.png" alt="Material De Construção Coragem" width="388" height="166"></span>
     <button class="mobile-nav-close" data-nav-close aria-label="Fechar menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <a href="index.html" data-nav-link class="active">Início</a>
@@ -134,7 +138,7 @@
 
 <section class="section">
   <div class="container">
-    <ul class="feature-list" style="grid-template-columns:repeat(4,1fr);display:grid;gap:22px;">
+    <ul class="feature-list feature-strip">
       
         <li class="feature-item">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
@@ -212,7 +216,19 @@
       <div class="chip-row"><span class="chip">Campo Grande</span> <span class="chip">Mendanha</span> <span class="chip">Carobinha</span> <span class="chip">Bangu</span> <span class="chip">Santíssimo</span> <span class="chip">Cosmos</span> <span class="chip">Inhoaíba</span> <span class="chip">Senador Camará</span></div>
       <a class="btn btn-outline-dark" style="margin-top:24px" href="material-de-construcao-mendanha-campo-grande.html">Ver área de entrega completa <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
-    <div class="map-wrap"><iframe src="https://www.google.com/maps?q=Rua+do+Sulista%2C+803-805+-+Campo+Grande%2C+Rio+de+Janeiro+-+RJ%2C+CEP+23098-630&output=embed" loading="lazy" title="Localização da Coragem"></iframe></div>
+    <div class="map-wrap" data-map-src="https://www.google.com/maps?q=Rua+do+Sulista%2C+803-805+-+Campo+Grande%2C+Rio+de+Janeiro+-+RJ%2C+CEP+23098-630&output=embed" data-map-title="Localização da Coragem">
+      <div class="map-cover map-art" aria-hidden="true"></div>
+      <div class="map-cover map-card">
+        <span class="map-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <strong>Rua do Sulista, 803-805</strong>
+        <span>Campo Grande, Rio de Janeiro - RJ</span>
+        <div class="map-actions">
+          <button type="button" class="btn btn-primary" data-map-load>Carregar mapa</button>
+          <a class="btn btn-ghost" href="https://maps.app.goo.gl/gFBnswycrDKVBB3N8" target="_blank" rel="noopener">Abrir no Google Maps</a>
+        </div>
+      </div>
+      <noscript><iframe src="https://www.google.com/maps?q=Rua+do+Sulista%2C+803-805+-+Campo+Grande%2C+Rio+de+Janeiro+-+RJ%2C+CEP+23098-630&output=embed" loading="lazy" title="Localização da Coragem"></iframe></noscript>
+    </div>
   </div>
 </section>
 
@@ -271,7 +287,7 @@
         <h2>Pronto para começar sua obra?</h2>
         <p>Monte sua lista de materiais e receba o orçamento pelo WhatsApp em poucos minutos.</p>
       </div>
-      <a class="btn btn-outline-dark" style="background:#0b2b5c;color:#fff;border-color:#0b2b5c" href="orcamento.html">Pedir orçamento agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a class="btn btn-primary btn-lg" href="orcamento.html">Pedir orçamento agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
   </div>
 </section>
@@ -282,7 +298,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> <span>Material De Construção Coragem</span></a>
+        <a href="index.html" class="brand"><img class="brand-logo brand-logo-lg" src="assets/logo-coragem.png" alt="Material De Construção Coragem" width="388" height="166"></a>
         <p>Há mais de 25 anos vendendo material de construção em Campo Grande, Mendanha e região com preço justo e entrega rápida.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/material_coragem/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
@@ -326,9 +342,9 @@
 </footer>
 <a class="wa-float" data-wa-message="Olá! Vim pelo site e gostaria de um orçamento." href="#" target="_blank" rel="noopener" aria-label="Fale no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.1-.45-.14-.64.14-.2.28-.74.92-.9 1.1-.17.2-.33.22-.61.08-.28-.14-1.19-.44-2.26-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.18-.28.28-.46.1-.2.05-.36-.02-.5-.07-.14-.64-1.54-.87-2.11-.23-.55-.47-.48-.64-.49h-.55c-.2 0-.5.07-.76.36-.26.28-1 1-1 2.4 0 1.42 1.02 2.79 1.16 2.98.14.2 2 3.05 4.86 4.28.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.2-.55-.34z"/><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.85.5 3.6 1.44 5.1L2 22l5.06-1.33A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.1c-1.68 0-3.28-.45-4.66-1.28l-.33-.2-3 .79.8-2.93-.21-.3A8.1 8.1 0 1 1 20.1 12a8.1 8.1 0 0 1-8.08 8.1z"/></svg></a>
 <script>document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js" defer></script>
 <script src="assets/script.js" defer></script>
 

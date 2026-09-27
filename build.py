@@ -6,8 +6,14 @@ Sem dependências externas (sem npm) — HTML puro, rápido, cada página com
 title/description únicos e dados estruturados (JSON-LD LocalBusiness).
 """
 import os
+import sys
 
-OUT_DIR = os.path.join(os.path.dirname(__file__), "dist")
+# Gera direto em site/ (a pasta que a Vercel publica). CSS, JS, logo e
+# favicons vivem em site/assets/ e são editados lá — este script só monta
+# o HTML, o robots.txt e o sitemap.xml.
+# Uso: python build.py            -> escreve em site/
+#      python build.py <pasta>    -> escreve em outra pasta (pra comparar)
+OUT_DIR = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
 
 SITE_NAME = "Material De Construção Coragem"
 PHONE_DISPLAY = "(21) 98169-1223"
@@ -132,6 +138,11 @@ def nav_links(active=""):
     return "\n".join(out)
 
 
+def logo_img(cls):
+    return ('<img class="%s" src="assets/logo-coragem.png" alt="%s" width="388" height="166">'
+            % (cls, SITE_NAME))
+
+
 def render_header(active=""):
     return """
 <div class="top-strip">
@@ -143,9 +154,8 @@ def render_header(active=""):
 </div>
 <header class="site-header" data-site-header>
   <div class="container">
-    <a href="index.html" class="brand">
-      <span class="brand-mark">%(cube)s</span>
-      <span>%(name)s<small>MATERIAIS DE CONSTRUÇÃO</small></span>
+    <a href="index.html" class="brand" aria-label="%(name)s — início">
+      %(logo)s
     </a>
     <nav class="main-nav">
       %(links)s
@@ -156,13 +166,13 @@ def render_header(active=""):
         <strong>%(phone_disp)s</strong>
       </div>
       <a class="btn btn-primary" data-wa-message="Olá! Vim pelo site e gostaria de um orçamento." href="#">%(wa)s Pedir no WhatsApp</a>
-      <button class="nav-toggle" data-nav-toggle aria-label="Abrir menu">%(menu)s</button>
+      <button class="nav-toggle" data-nav-toggle aria-label="Abrir menu" aria-controls="mobile-nav">%(menu)s</button>
     </div>
   </div>
 </header>
-<div class="mobile-nav" data-mobile-nav>
+<div class="mobile-nav" id="mobile-nav" data-mobile-nav>
   <div class="mobile-nav-top">
-    <span class="brand" style="color:#fff">%(name)s</span>
+    <span class="brand">%(logo)s</span>
     <button class="mobile-nav-close" data-nav-close aria-label="Fechar menu">%(close)s</button>
   </div>
   %(links)s
@@ -170,10 +180,10 @@ def render_header(active=""):
 </div>
 """ % {
         "pin": icon("pin"), "clock": icon("clock"), "phone": icon("phone"),
-        "cube": icon("cube"), "menu": icon("menu"), "close": icon("close"), "wa": icon("whatsapp"),
+        "menu": icon("menu"), "close": icon("close"), "wa": icon("whatsapp"),
         "addr": ADDRESS_LINE, "hours": HOURS_WEEK, "hours_sat": HOURS_SAT,
         "tel": PHONE_TEL, "phone_disp": PHONE_DISPLAY, "name": SITE_NAME,
-        "links": nav_links(active),
+        "links": nav_links(active), "logo": logo_img("brand-logo"),
     }
 
 
@@ -186,7 +196,7 @@ def render_footer():
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="brand">%(cube)s <span>%(name)s</span></a>
+        <a href="index.html" class="brand">%(logo)s</a>
         <p>Há mais de 25 anos vendendo material de construção em Campo Grande, Mendanha e região com preço justo e entrega rápida.</p>
         <div class="footer-social">
           <a href="%(insta)s" target="_blank" rel="noopener" aria-label="Instagram">%(ig)s</a>
@@ -225,13 +235,13 @@ def render_footer():
 </footer>
 <a class="wa-float" data-wa-message="Olá! Vim pelo site e gostaria de um orçamento." href="#" target="_blank" rel="noopener" aria-label="Fale no WhatsApp">%(wa)s</a>
 <script>document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear();});</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js" defer></script>
 <script src="assets/script.js" defer></script>
 """ % {
-        "cube": icon("cube"), "name": SITE_NAME, "insta": INSTAGRAM, "fb": FACEBOOK,
+        "logo": logo_img("brand-logo brand-logo-lg"), "name": SITE_NAME, "insta": INSTAGRAM, "fb": FACEBOOK,
         "ig": icon("instagram"), "fbicon": icon("facebook"), "wa": icon("whatsapp"),
         "cats": cat_links, "addr_full": ADDRESS_FULL, "tel": PHONE_TEL,
         "phone_disp": PHONE_DISPLAY, "hours": HOURS_WEEK, "hours_sat": HOURS_SAT,
@@ -291,8 +301,13 @@ def page_shell(title, description, path, body, active="", extra_head=""):
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@118,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0a1628">
+<script>(function(r){r.classList.add("reveal");setTimeout(function(){if(!r.classList.contains("reveal-live"))r.classList.remove("reveal")},2500)})(document.documentElement);</script>
 %(jsonld)s
 %(extra_head)s
 </head>
@@ -378,8 +393,25 @@ def faq_block(items=None):
 
 
 def map_embed():
+    # O iframe do Google Maps (~450 KiB) só carrega quando a pessoa clica em
+    # "Carregar mapa" (ver initMapFacade em script.js). Sem JS, o <noscript>
+    # mostra o mapa direto.
     q = ADDRESS_FULL.replace(" ", "+").replace(",", "%2C")
-    return '<div class="map-wrap"><iframe src="https://www.google.com/maps?q=%s&output=embed" loading="lazy" title="Localização da Coragem"></iframe></div>' % q
+    src = "https://www.google.com/maps?q=%s&output=embed" % q
+    title = "Localização da Coragem"
+    return """<div class="map-wrap" data-map-src="%(src)s" data-map-title="%(title)s">
+      <div class="map-cover map-art" aria-hidden="true"></div>
+      <div class="map-cover map-card">
+        <span class="map-pin">%(pin)s</span>
+        <strong>%(addr)s</strong>
+        <span>Campo Grande, Rio de Janeiro - RJ</span>
+        <div class="map-actions">
+          <button type="button" class="btn btn-primary" data-map-load>Carregar mapa</button>
+          <a class="btn btn-ghost" href="%(maps)s" target="_blank" rel="noopener">Abrir no Google Maps</a>
+        </div>
+      </div>
+      <noscript><iframe src="%(src)s" loading="lazy" title="%(title)s"></iframe></noscript>
+    </div>""" % {"src": src, "title": title, "pin": icon("pin"), "addr": ADDRESS_LINE, "maps": MAPS_LINK}
 
 
 os.makedirs(OUT_DIR, exist_ok=True)
@@ -432,7 +464,7 @@ def page_home():
 
 <section class="section">
   <div class="container">
-    <ul class="feature-list" style="grid-template-columns:repeat(4,1fr);display:grid;gap:22px;">
+    <ul class="feature-list feature-strip">
       %(trust)s
     </ul>
   </div>
@@ -491,7 +523,7 @@ def page_home():
         <h2>Pronto para começar sua obra?</h2>
         <p>Monte sua lista de materiais e receba o orçamento pelo WhatsApp em poucos minutos.</p>
       </div>
-      <a class="btn btn-outline-dark" style="background:#0b2b5c;color:#fff;border-color:#0b2b5c" href="orcamento.html">Pedir orçamento agora %(arrow)s</a>
+      <a class="btn btn-primary btn-lg" href="orcamento.html">Pedir orçamento agora %(arrow)s</a>
     </div>
   </div>
 </section>
@@ -534,7 +566,7 @@ def page_produtos():
         <h2>Não achou o que precisa?</h2>
         <p>Manda a lista completa da sua obra que a gente confirma tudo pra você.</p>
       </div>
-      <a class="btn btn-outline-dark" style="background:#0b2b5c;color:#fff;border-color:#0b2b5c" href="orcamento.html">Montar minha lista %s</a>
+      <a class="btn btn-primary btn-lg" href="orcamento.html">Montar minha lista %s</a>
     </div>
   </div>
 </section>
@@ -597,6 +629,88 @@ def page_quem_somos():
 # ================================================================
 # ENTREGA
 # ================================================================
+# Cena vetorial do caminhão (entrega). Animada por initTruckScene em
+# script.js: as classes tr-* e as coordenadas do SVG são usadas lá.
+TRUCK_SCENE = """<section class="truck-section">
+  <div class="truck-scene" data-truck-scene role="img" aria-label="Ilustração do caminhão da Coragem entregando areia, pedra e cimento na obra">
+    <svg viewBox="0 0 1200 340" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <g class="tr-hills">
+        <path d="M-100 240V150C-20 128 60 104 140 106C220 108 280 64 380 58C460 54 510 98 570 104C650 112 710 76 790 84C870 92 910 128 990 120C1070 112 1130 86 1300 104V240Z" fill="#10203a"/>
+        <path d="M-100 240V196C40 176 140 168 260 178C380 188 460 160 580 164C700 168 780 190 900 182C1020 174 1120 160 1300 172V240Z" fill="#0e1c33"/>
+      </g>
+      <g fill="#132544">
+        <path d="M600 256V214L632 192L664 214V256Z"/><rect x="672" y="222" width="54" height="34"/>
+        <path d="M900 256V206L940 180L980 206V256Z"/><rect x="990" y="216" width="70" height="40"/><path d="M1070 256V222L1098 204L1126 222V256Z"/>
+      </g>
+      <g stroke="#2b4a7a" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M232 256V66M244 256V66M232 66H380M232 84L380 66M212 66H232"/>
+        <path d="M232 96L244 116L232 136L244 156L232 176L244 196L232 216L244 236" stroke-width="1.5"/>
+        <path d="M352 66V120" stroke-width="1.5"/><path d="M346 120H358"/>
+      </g>
+      <rect x="150" y="196" width="150" height="60" fill="#1c3358"/>
+      <path d="M150 216H300M150 236H300M180 196V216M220 196V216M260 196V216M200 216V236M240 216V236M280 216V236M180 236V256M220 236V256M260 236V256" stroke="#10203a" stroke-width="2"/>
+      <rect x="0" y="256" width="1200" height="84" fill="#141f33"/>
+      <path d="M0 256H1200" stroke="#2b4a7a" stroke-width="2"/>
+      <rect x="0" y="318" width="1200" height="22" fill="#0d1a2f"/>
+      <g class="tr-dashes" fill="#fff212" opacity=".75">
+        <rect x="-160" y="303" width="36" height="4" rx="2"/><rect x="-80" y="303" width="36" height="4" rx="2"/><rect x="0" y="303" width="36" height="4" rx="2"/><rect x="80" y="303" width="36" height="4" rx="2"/><rect x="160" y="303" width="36" height="4" rx="2"/><rect x="240" y="303" width="36" height="4" rx="2"/><rect x="320" y="303" width="36" height="4" rx="2"/><rect x="400" y="303" width="36" height="4" rx="2"/><rect x="480" y="303" width="36" height="4" rx="2"/><rect x="560" y="303" width="36" height="4" rx="2"/><rect x="640" y="303" width="36" height="4" rx="2"/><rect x="720" y="303" width="36" height="4" rx="2"/><rect x="800" y="303" width="36" height="4" rx="2"/><rect x="880" y="303" width="36" height="4" rx="2"/><rect x="960" y="303" width="36" height="4" rx="2"/><rect x="1040" y="303" width="36" height="4" rx="2"/><rect x="1120" y="303" width="36" height="4" rx="2"/><rect x="1200" y="303" width="36" height="4" rx="2"/><rect x="1280" y="303" width="36" height="4" rx="2"/>
+      </g>
+      <g data-ground transform="translate(0 -18)">
+      <g class="tr-pile">
+        <path d="M372 292Q396 262 416 248Q431 239 446 248Q464 262 480 292Z" fill="#d9b26f"/>
+        <path d="M431 243Q446 248 458 262Q468 276 480 292H446Q444 268 431 243Z" fill="#c29b58"/>
+      </g>
+      <g>
+        <ellipse class="tr-stone" cx="318" cy="285" rx="8.5" ry="7" fill="#8b94a3"/><ellipse class="tr-stone" cx="334" cy="285" rx="8.5" ry="7" fill="#a3acb9"/><ellipse class="tr-stone" cx="350" cy="285" rx="8.5" ry="7" fill="#7d8697"/><ellipse class="tr-stone" cx="366" cy="285" rx="8.5" ry="7" fill="#98a1af"/>
+        <ellipse class="tr-stone" cx="326" cy="272" rx="8.5" ry="7" fill="#a3acb9"/><ellipse class="tr-stone" cx="342" cy="272" rx="8.5" ry="7" fill="#8b94a3"/><ellipse class="tr-stone" cx="358" cy="272" rx="8.5" ry="7" fill="#a9b1bd"/>
+        <ellipse class="tr-stone" cx="334" cy="259" rx="8.5" ry="7" fill="#7d8697"/><ellipse class="tr-stone" cx="350" cy="259" rx="8.5" ry="7" fill="#98a1af"/>
+        <ellipse class="tr-stone" cx="342" cy="246" rx="8.5" ry="7" fill="#a3acb9"/>
+      </g>
+      <g fill="#e3c07e">
+        <circle class="tr-sand-drop" cx="440" cy="206" r="3.5" opacity="0"/><circle class="tr-sand-drop" cx="448" cy="210" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="444" cy="216" r="3" opacity="0"/><circle class="tr-sand-drop" cx="452" cy="204" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="436" cy="214" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="446" cy="222" r="3.5" opacity="0"/><circle class="tr-sand-drop" cx="440" cy="226" r="2.5" opacity="0"/><circle class="tr-sand-drop" cx="454" cy="214" r="3" opacity="0"/><circle class="tr-sand-drop" cx="438" cy="200" r="2" opacity="0"/><circle class="tr-sand-drop" cx="450" cy="226" r="2.5" opacity="0"/>
+      </g>
+      <g fill="#9aa4b5">
+        <g class="tr-dust-land" opacity="0"><circle cx="390" cy="282" r="12"/><circle cx="404" cy="276" r="9"/></g>
+        <g class="tr-dust-land" opacity="0"><circle cx="440" cy="280" r="13"/><circle cx="456" cy="284" r="9"/></g>
+        <g class="tr-dust-land" opacity="0"><circle cx="330" cy="280" r="11"/><circle cx="316" cy="286" r="8"/></g>
+        <g class="tr-dust-drive" data-x="80" opacity="0"><circle cx="80" cy="284" r="11"/><circle cx="66" cy="288" r="7"/><circle cx="92" cy="288" r="6"/></g>
+        <g class="tr-dust-drive" data-x="190" opacity="0"><circle cx="190" cy="284" r="11"/><circle cx="176" cy="288" r="7"/><circle cx="202" cy="288" r="6"/></g>
+        <g class="tr-dust-drive" data-x="290" opacity="0"><circle cx="290" cy="284" r="11"/><circle cx="276" cy="288" r="7"/><circle cx="302" cy="288" r="6"/></g>
+        <g class="tr-dust-drive" data-x="370" opacity="0"><circle cx="370" cy="284" r="10"/><circle cx="356" cy="288" r="7"/></g>
+        <g class="tr-dust-drive" data-x="430" opacity="0"><circle cx="430" cy="286" r="8"/><circle cx="418" cy="289" r="6"/></g>
+      </g>
+      </g>
+      <g class="tr-truck">
+        <rect x="462" y="236" width="368" height="16" rx="3" fill="#2b3a52"/>
+        <rect x="698" y="146" width="6" height="64" rx="2" fill="#8a94a6"/>
+        <g class="tr-bed">
+          <path d="M464 178H704V238H478Z" fill="#d8dde5"/>
+          <path d="M506 184V236M546 184V236M586 184V236M626 184V236M666 184V236" stroke="#b8c0cc" stroke-width="3"/>
+          <path class="tr-load" d="M470 176Q520 140 574 144Q610 140 634 150V176Z" fill="#d9b26f"/>
+          <g fill="#8b94a3"><circle cx="560" cy="150" r="4"/><circle cx="592" cy="147" r="3.5"/><circle cx="612" cy="152" r="4"/></g>
+          <rect x="460" y="174" width="248" height="9" rx="2" fill="#eef1f4"/>
+          <rect x="640" y="158" width="30" height="16" rx="3" fill="#efe9dc"/><rect x="672" y="158" width="30" height="16" rx="3" fill="#e6dfcf"/><rect x="656" y="142" width="30" height="16" rx="3" fill="#efe9dc"/>
+          <path d="M640 166H670M672 166H702M656 150H686" stroke="#0a1628" stroke-width="3"/>
+        </g>
+        <path d="M706 252V180Q706 168 718 168H792L828 210V252Z" fill="#fff212"/>
+        <path d="M722 180H786L810 208H722Z" fill="#0a1628" opacity=".88"/>
+        <path d="M730 186H760" stroke="#fff" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+        <rect x="706" y="222" width="122" height="7" fill="#0a1628"/>
+        <path d="M752 212V250" stroke="#0a1628" stroke-opacity=".3" stroke-width="2"/>
+        <rect x="820" y="214" width="9" height="8" rx="2" fill="#fff"/>
+        <rect x="822" y="234" width="14" height="16" rx="3" fill="#c9cfd8"/>
+        <g data-ground transform="translate(0 -18)">
+          <g class="tr-wheel"><circle cx="520" cy="270" r="22" fill="#070b12"/><circle cx="520" cy="270" r="11" fill="#c9cfd8"/><path d="M509 270H531M520 259V281" stroke="#0a1628" stroke-width="3"/><circle cx="520" cy="270" r="3.5" fill="#0a1628"/></g>
+        <g class="tr-wheel"><circle cx="572" cy="270" r="22" fill="#070b12"/><circle cx="572" cy="270" r="11" fill="#c9cfd8"/><path d="M561 270H583M572 259V281" stroke="#0a1628" stroke-width="3"/><circle cx="572" cy="270" r="3.5" fill="#0a1628"/></g>
+        <g class="tr-wheel"><circle cx="776" cy="270" r="22" fill="#070b12"/><circle cx="776" cy="270" r="11" fill="#c9cfd8"/><path d="M765 270H787M776 259V281" stroke="#0a1628" stroke-width="3"/><circle cx="776" cy="270" r="3.5" fill="#0a1628"/></g>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+"""
+
+
 def page_entrega():
     body = """
 <section class="page-hero">
@@ -633,6 +747,8 @@ def page_entrega():
   </div>
 </section>
 """ % (icon("truck"), icon("shield"), ADDRESS_LINE, icon("check"), icon("whatsapp"), neighborhood_chips(), map_embed())
+    # O caminhão entra entre "Como funciona" e o mapa.
+    body = body.replace('<section class="section section-alt">', TRUCK_SCENE + '<section class="section section-alt">', 1)
     return page_shell(
         "Entrega de Material de Construção em Campo Grande e Bangu",
         "Entregamos em Campo Grande, Bangu, Santíssimo, Cosmos, Inhoaíba e Senador Camará em até 48h. Frota própria, preço justo.",
@@ -843,17 +959,6 @@ print("Gerando site...")
 for fn, page_func in zip(FILE_NAMES, PAGES):
     write(fn, page_func())
 
-# assets
-import shutil
-shutil.copy(
-    os.path.join(os.path.dirname(__file__), "src", "assets", "style.css"),
-    os.path.join(OUT_DIR, "assets", "style.css"),
-)
-shutil.copy(
-    os.path.join(os.path.dirname(__file__), "src", "assets", "script.js"),
-    os.path.join(OUT_DIR, "assets", "script.js"),
-)
-
 # robots.txt + sitemap.xml
 with open(os.path.join(OUT_DIR, "robots.txt"), "w") as f:
     f.write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE_DOMAIN)
@@ -864,4 +969,4 @@ sitemap_urls = "\n".join(
 with open(os.path.join(OUT_DIR, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % sitemap_urls)
 
-print("Pronto! %d páginas geradas em dist/" % len(FILE_NAMES))
+print("Pronto! %d páginas geradas em %s" % (len(FILE_NAMES), OUT_DIR))
