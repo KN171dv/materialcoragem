@@ -6,6 +6,7 @@ Sem dependências externas (sem npm) — HTML puro, rápido, cada página com
 title/description únicos e dados estruturados (JSON-LD LocalBusiness).
 """
 import os
+import json
 import sys
 
 # Gera direto em site/ (a pasta que a Vercel publica). CSS, JS, logo e
@@ -27,7 +28,7 @@ HOURS_WEEK = "Seg a Sex: 7h às 18h"
 HOURS_SAT = "Sáb: 7h às 16h"
 INSTAGRAM = "https://www.instagram.com/material_coragem/"
 FACEBOOK = "https://www.facebook.com/61558025887908"
-SITE_DOMAIN = "https://www.materialcoragem.com.br"  # trocar quando o domínio for registrado
+SITE_DOMAIN = "https://coragemabr.com.br"  # domínio configurado na Vercel (sem www)
 
 NEIGHBORHOODS = ["Campo Grande", "Mendanha", "Carobinha", "Bangu", "Santíssimo", "Cosmos", "Inhoaíba", "Senador Camará"]
 
@@ -248,43 +249,47 @@ def render_footer():
     }
 
 
-def local_business_jsonld(page_title, page_desc, url):
-    return """
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HardwareStore",
-  "name": "%s",
-  "image": "%s/assets/og-image.jpg",
-  "@id": "%s",
-  "url": "%s",
-  "telephone": "%s",
-  "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "%s",
-    "addressLocality": "Campo Grande, Rio de Janeiro",
-    "addressRegion": "RJ",
-    "postalCode": "23098-630",
-    "addressCountry": "BR"
-  },
-  "openingHoursSpecification": [
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "18:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "07:00", "closes": "16:00"}
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.6",
-    "reviewCount": "49"
-  },
-  "sameAs": ["%s", "%s"]
-}
-</script>
-""" % (SITE_NAME, SITE_DOMAIN, SITE_DOMAIN, url, PHONE_TEL, ADDRESS_LINE, INSTAGRAM, FACEBOOK)
+def local_business_jsonld():
+    # Mesmos dados do Perfil da Empresa no Google — igual em todas as páginas.
+    data = {
+        "@context": "https://schema.org",
+        "@type": "HardwareStore",
+        "name": SITE_NAME,
+        "url": SITE_DOMAIN,
+        "telephone": PHONE_TEL,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": ADDRESS_LINE,
+            "addressLocality": "Campo Grande, Rio de Janeiro",
+            "addressRegion": "RJ",
+            "postalCode": "23098-630",
+            "addressCountry": "BR",
+        },
+        "openingHoursSpecification": [
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "07:00", "closes": "18:00"},
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "07:00", "closes": "16:00"},
+        ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.6",
+            "reviewCount": "49",
+        },
+        "sameAs": [INSTAGRAM, FACEBOOK],
+        "areaServed": NEIGHBORHOODS,
+    }
+    return '\n<script type="application/ld+json">\n%s\n</script>\n' % json.dumps(data, ensure_ascii=False, indent=2)
+
+
+def page_url(path):
+    # A Vercel está com cleanUrls: /produtos.html redireciona (308) para
+    # /produtos e /index.html para /. Canonical, og:url e sitemap usam a
+    # URL final, senão o Google trata a página como redirecionamento.
+    slug = path[:-len(".html")] if path.endswith(".html") else path
+    return SITE_DOMAIN + "/" + ("" if slug == "index" else slug)
 
 
 def page_shell(title, description, path, body, active="", extra_head=""):
-    url = SITE_DOMAIN + "/" + path
+    url = page_url(path)
     return """<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -321,7 +326,7 @@ def page_shell(title, description, path, body, active="", extra_head=""):
 </html>
 """ % {
         "title": title, "desc": description, "url": url,
-        "jsonld": local_business_jsonld(title, description, url),
+        "jsonld": local_business_jsonld(),
         "extra_head": extra_head,
         "header": render_header(active),
         "body": body,
@@ -964,7 +969,7 @@ with open(os.path.join(OUT_DIR, "robots.txt"), "w") as f:
     f.write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE_DOMAIN)
 
 sitemap_urls = "\n".join(
-    "  <url><loc>%s/%s</loc></url>" % (SITE_DOMAIN, fn) for fn in FILE_NAMES
+    "  <url><loc>%s</loc></url>" % page_url(fn) for fn in FILE_NAMES
 )
 with open(os.path.join(OUT_DIR, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % sitemap_urls)

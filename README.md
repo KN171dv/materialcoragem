@@ -59,7 +59,7 @@ conectado no Vercel. Passos:
    estático (sem framework) e serve os arquivos direto. Em ~1 minuto você
    tem uma URL tipo `coragem-site.vercel.app`.
 
-5. Depois de comprar o domínio (`materialcoragem.com.br`, por exemplo), é só
+5. O domínio registrado é `coragemabr.com.br` (sem www). Pra configurar outro, é só
    ir em **Project Settings → Domains** no Vercel e adicionar o domínio —
    ele te dá os registros de DNS pra colocar no registrador (Registro.br).
    Aviso quando chegar nessa parte que te guio passo a passo.
