@@ -308,9 +308,10 @@ def page_shell(title, description, path, body, active="", extra_head=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@118,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0a1628">
 <script>(function(r){r.classList.add("reveal");setTimeout(function(){if(!r.classList.contains("reveal-live"))r.classList.remove("reveal")},2500)})(document.documentElement);</script>
 %(jsonld)s
@@ -541,7 +542,7 @@ def page_home():
         "arrow": icon("arrow"),
     }
     return page_shell(
-        "Material de Construção em Campo Grande RJ – Coragem",
+        "Coragem Material de Construção – Campo Grande RJ",
         "Há 25 anos vendendo material de construção em Campo Grande e Mendanha, RJ. Cimento, areia, tintas, hidráulica e mais. Orçamento pelo WhatsApp.",
         "index.html", body, active="index.html",
     )
@@ -577,7 +578,7 @@ def page_produtos():
 </section>
 """ % (category_grid(), icon("arrow"))
     return page_shell(
-        "Cimento, Tintas, Hidráulica e Ferramentas – Coragem Campo Grande",
+        "Coragem Campo Grande – Cimento, Tintas, Hidráulica e Ferramentas",
         "Catálogo completo de materiais de construção em Campo Grande RJ: cimento, areia, brita, tintas, hidráulica, elétrica, ferramentas e acabamento.",
         "produtos.html", body, active="produtos.html",
     )
@@ -625,7 +626,7 @@ def page_quem_somos():
 </section>
 """ % (trust_badges(), icon("shield"), icon("star"), icon("truck"), icon("cube"), review_banner())
     return page_shell(
-        "Quem Somos - Coragem Material de Construção, 25 anos em Campo Grande",
+        "Coragem Material de Construção – Quem Somos, 25 anos em Campo Grande",
         "Desde os anos 2000 atendendo Campo Grande e região com materiais de construção de qualidade e atendimento próximo.",
         "quem-somos.html", body, active="quem-somos.html",
     )
@@ -755,7 +756,7 @@ def page_entrega():
     # O caminhão entra entre "Como funciona" e o mapa.
     body = body.replace('<section class="section section-alt">', TRUCK_SCENE + '<section class="section section-alt">', 1)
     return page_shell(
-        "Entrega de Material de Construção em Campo Grande e Bangu",
+        "Coragem – Entrega de Material de Construção em Campo Grande e Bangu",
         "Entregamos em Campo Grande, Bangu, Santíssimo, Cosmos, Inhoaíba e Senador Camará em até 48h. Frota própria, preço justo.",
         "entrega.html", body, active="entrega.html",
     )
@@ -803,7 +804,7 @@ def page_contato():
         map_embed(),
     )
     return page_shell(
-        "Fale com a Coragem – Material de Construção Campo Grande RJ",
+        "Coragem Material de Construção Campo Grande RJ – Fale Conosco",
         "Telefone, WhatsApp e endereço da Coragem, na Rua do Sulista, Campo Grande RJ. Atendimento de segunda a sábado.",
         "contato.html", body, active="contato.html",
     )
@@ -874,7 +875,7 @@ def page_orcamento():
         faq_block(FAQ[-1:]),
     )
     return page_shell(
-        "Peça seu Orçamento - Coragem Material de Construção",
+        "Coragem Material de Construção – Peça seu Orçamento",
         "Monte sua lista de materiais de construção e receba o orçamento da Coragem pelo WhatsApp em até 24h úteis.",
         "orcamento.html", body, active="orcamento.html",
     )
@@ -938,7 +939,7 @@ def page_local_seo():
         faq_block(FAQ), review_banner(), kw_html,
     )
     return page_shell(
-        "Material de Construção no Mendanha e Carobinha – Coragem Campo Grande",
+        "Coragem Campo Grande – Material de Construção no Mendanha e Carobinha",
         "A Coragem atende Mendanha, Campo Grande e Carobinha há mais de 25 anos: cimento, areia, tintas, hidráulica e elétrica com entrega própria.",
         "material-de-construcao-mendanha-campo-grande.html", body,
         active="material-de-construcao-mendanha-campo-grande.html",

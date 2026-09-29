@@ -17,11 +17,12 @@ materialcoragem/
     │   contato.html, orcamento.html,
     │   material-de-construcao-mendanha-campo-grande.html   <- gerados pelo build.py
     ├── robots.txt, sitemap.xml                             <- gerados pelo build.py
+    ├── favicon.ico, apple-touch-icon.png, icon-192.png, icon-512.png,
+    │   site.webmanifest                                    <- ícones (castelo da logo)
     └── assets/         <- editados à mão (o build.py não mexe aqui)
         ├── style.css       <- todo o CSS do site
         ├── script.js       <- menu, formulário, mapa, FAQ, animações e scroll
-        ├── logo-coragem.png
-        └── favicon-32.png, favicon-192.png, apple-touch-icon.png
+        └── logo-coragem.png
 ```
 
 ### Como editar
